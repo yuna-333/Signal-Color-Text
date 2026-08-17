@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>시그널 컬러 텍스트 생성</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FSBT5ELEKN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FSBT5ELEKN');
+</script>
+  
+<style>
+
+.emoji-sidebar {
+  position: fixed;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  width: 200px;
+  background: rgba(30,30,30,0.95);
+  border-right: 1px solid #444;
+  border-radius: 12px;
+  padding: 10px 10px;
+  overflow: hidden;
+  z-index: 999;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.4);
+  transition: width 0.3s ease;
+}
+
+.emoji-sidebar.collapsed {
+  width: 40px; 
+  padding: 10px 2px;
+}
+
+.emoji-sidebar.collapsed .emoji-sidebar-title,
+.emoji-sidebar.collapsed .emoji-category {
+  display: none; 
+}
+
+#emoji-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  width: 30px;
+  height: 30px;
+  border-radius: 20%;
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+#emoji-toggle span {
+  display: inline-block; 
+  transform: translateY(1px);
+}
+
+#emoji-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.emoji-sidebar.collapsed #emoji-toggle {
+  transform: rotate(180deg) scale(1.1);
+}
+
+.emoji-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #eee;
+  text-align: left;
+  padding-left: 6px;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+  cursor: default;
+}
+
+.emoji-sidebar-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  text-align: left;
+  padding: 8px 6px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  letter-spacing: 0.5px;
+}
+
+.emoji-category {
+  margin-bottom: 10px; 
+  padding-bottom: 6px; 
+  border-bottom: 1px dashed rgba(255,255,255,0.1); 
+}
+
+.emoji-category:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.emoji-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  justify-content: flex-start;
+  padding-left: 3px;
+}
+
+.emoji-grid span {
+  font-size: 20px;
+  padding: 3px; 
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.emoji-grid span:hover {
+  background: rgba(255,255,255,0.15);
+  transform: scale(1.2);
+}
+
+.footerText{
+margin-top:30px;
+margin-bottom:30px;
+text-align:center;
+opacity:0.5;
+font-size:13px;
+}
+
+body{
+background:#0b0b0b;
+color:white;
+font-family: 'Rubik', 'Noto Sans KR', sans-serif;
+padding:0px;
+max-width:1000px;
+margin:auto;
+}
+
+h1{
+text-align:center;
+margin-bottom:8px;
+font-weight:700;
+}
+
+.subtitle{
+text-align:center;
+opacity:0.6;
+margin-bottom:30px;
+}
+
+.editor{
+background:#111;
+border:1px solid #333;
+border-radius:12px;
+padding:24px;
+}
+
+textarea{
+width:100%;
+height:130px;
+background:#0f0f0f;
+border:1px solid #444;
+color:white;
+font-size:16px;
+padding:14px;
+box-sizing: border-box;
+border-radius:8px;
+resize:none;
+font-family:'Noto Sans KR', sans-serif;
+}
+
+.preview span{
+padding:0px 0px;
+border-radius:3px;
+font-family: 'Rubik', 'Noto Sans KR', sans-serif;
+letter-spacing:0;
+word-spacing:0;
+display:inline;
+}
+
+
+.controls{
+margin-top:16px;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+button{
+padding:9px 16px;
+border:none;
+border-radius:8px;
+background:#5865F2;
+color:white;
+cursor:pointer;
+font-size:14px;
+font-family:'Noto Sans KR', sans-serif;
+}
+
+button:hover{
+opacity:0.9;
+}
+
+.palette{
+margin-bottom:18px;
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+}
+
+.color{
+width:42px;
+height:30px;
+border-radius:6px;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:13px;
+border:1px solid #333;
+font-weight:500;
+}
+
+.previewBox{
+margin-top:30px;
+background:#000;
+border:1px solid #333;
+border-radius:12px;
+padding:22px;
+}
+
+.previewTitle{
+display: flex;
+margin-bottom:12px;
+opacity:0.6;
+font-size:14px;
+}
+
+.previewDesc{
+font-size:12px;
+font-weight: 600;
+opacity:0.6;
+}
+
+.preview{
+display: block;
+font-size:14px;
+chat
+min-height:32px;
+white-space: pre-wrap;
+font-kerning:none;
+font-family: 'Noto Sans KR', sans-serif;
+font-weight: 500;
+width: 60ch;
+}
+
+.preview i {
+  font-style: italic !important;
+}
+
+.symbol {
+  font-family: 'Noto Sans KR', sans-serif !important;
+}
+
+.paletteTitle{
+margin-top:20px;
+margin-bottom:12px;
+font-size:15px;
+font-weight:600;
+opacity:0.8;
+}
+
+.paletteDesc{
+font-size:11px;
+opacity:0.6;
+margin-left:4px;
+}
+
+.slider {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  height: 200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+}
+
+.slider .prev,
+.slider .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(200,200,200,0.3);
+  color: white;
+  border: none;
+  width: 30px;    
+  height: 30px;       
+  font-size: 1.2em;   
+  line-height: 1;      
+  padding: 0;        
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 4px;
+  z-index: 2;
+}
+
+.slider .prev { left: 5px; }
+.slider .next { right: 5px; }
+
+.floating-slider {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  width: 120px;
+  height: 300px;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.float-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.float-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dots {
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  text-align: center;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 3px;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dot.active,
+.dot:hover {
+  background-color: white;
+}
+
+.vertical-slider {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;       
+  height: 50px;              
+  margin: 10px auto;       
+  overflow: hidden;
+  border-radius: 12px;    
+  background-color: #222;
+  border: 1px solid #555;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  box-sizing: border-box;
+}
+
+.v-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.v-slide {
+  white-space: pre; 
+}
+.copy-alert {
+  position: absolute;
+  top: 65%; 
+  left: 30%;
+  transform: translateX(-50%) translateY(-6px);
+   background: rgba(50,50,50,0.85);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 10;
+}
+.copy-alert.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-12px); 
+}
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:14px 40px;
+
+background:rgba(20,20,20,0.8);
+backdrop-filter:blur(10px);
+
+border-bottom:1px solid rgba(255,255,255,0.05);
+
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.logo{
+font-size:18px;
+font-weight:600;
+letter-spacing:1px;
+color:white;
+}
+
+.nav-links{
+display:flex;
+gap:30px;
+}
+
+.nav-links a{
+color:#d0d0d0;
+text-decoration:none;
+font-size:15px;
+position:relative;
+transition:0.25s;
+}
+
+.nav-links a:hover{
+color:white;
+}
+
+.nav-links a::after{
+content:"";
+position:absolute;
+left:0;
+bottom:-6px;
+width:0%;
+height:2px;
+background:#7aa2ff;
+transition:0.3s;
+}
+
+.nav-links a:hover::after{
+width:100%;
+}
+
+.nav-links a.active{
+color:white;
+
+text-shadow:
+0 0 4px rgba(122,162,255,0.9),
+0 0 10px rgba(122,162,255,0.6),
+0 0 20px rgba(122,162,255,0.4);
+}
+
+.nav-links a.active::after{
+width:100%;
+}
+
+.logo-area{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.home-btn{
+font-size:18px;
+text-decoration:none;
+color:#d0d0d0;
+transition:0.2s;
+}
+
+.home-btn:hover{
+color:white;
+text-shadow:
+0 0 6px rgba(122,162,255,0.8),
+0 0 12px rgba(122,162,255,0.6);
+}
+
+.color.style-btn {
+  background: rgba(255,255,255,0.08);
+  font-weight: bold;
+}
+
+.color.style-btn:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.chat-info{
+  display:flex;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.chat-info input{
+  flex:1;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #444;
+  background:#0f0f0f;
+  color:white;
+  font-size:14px;
+  font-family:'Noto Sans KR', sans-serif;
+}
+
+.chat-name {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.chat-id {
+  color: #b1afb2;
+  margin-right: 4px;
+  font-size:13px;
+}
+
+.c0{color:#ffffff;}
+.c1{color:#FFC7DF;}
+.c2{color:#afec61;}
+.c3{color:#ffff9f;}
+.c4{color:#7bd8ff;}
+.c5{color:#e5c3ff;}
+.c6{color:#b3fdbd;}
+.c7{color:#ffffff;}
+.c8{color:#b1afb2;}
+.c9{color:#ffd256;}
+
+.bg1{background:rgba(255,199,223,0.5);}
+.bg2{background:rgba(175,236,97,0.5);}
+.bg3{background:rgba(255,255,159,0.5);}
+.bg4{background:rgba(123,216,255,0.5);}
+.bg5{background:rgba(229,195,255,0.5);}
+.bg6{background:rgba(179,253,189,0.5);}
+.bg7{background:rgba(255,255,255,0.5);}
+.bg8{background:rgba(177,175,178,0.5);}
+.bg9{background:rgba(255,210,86,0.5);}
+
+</style>
+</head>
+
+
+<body>
+
+<nav class="navbar">
+
+<div class="logo-area">
+
+<a href="index.html" class="home-btn">⌂</a>
+
+  <div class="logo"> </div>
+
+  <div class="nav-links">
+    <a href="index.html" class="active">컬러 텍스트</a>
+    <a href="album.html">포토 갤러리</a>
+  </div>
+</nav>
+
+<div class="emoji-sidebar" id="emoji-sidebar">
+  <button id="emoji-toggle"><span class="material-icons">⌅</span></button>
+  <div class="emoji-sidebar-title">이모지를 클릭해 보세요.</div>
+  
+  <div class="emoji-category">
+    <div class="emoji-title">🔥 인기</div>
+  <div class="emoji-grid">
+    <span onclick="insertEmoji(this)">🔥</span>
+    <span onclick="insertEmoji(this)">⭐</span>
+    <span onclick="insertEmoji(this)">🌟</span>
+    <span onclick="insertEmoji(this)">✨</span>
+    <span onclick="insertEmoji(this)">⚡</span>
+    <span onclick="insertEmoji(this)">💥</span>
+    <span onclick="insertEmoji(this)">🎉</span>
+    <span onclick="insertEmoji(this)">🎊</span>
+    <span onclick="insertEmoji(this)">🍀</span>
+    <span onclick="insertEmoji(this)">🎁</span>
+  </div>
+</div>
+
+<div class="emoji-category">
+  <div class="emoji-title">📢 공지</div>
+  <div class="emoji-grid">
+    <span onclick="insertEmoji(this)">📢</span>
+    <span onclick="insertEmoji(this)">📣</span>
+    <span onclick="insertEmoji(this)">🔔</span>
+    <span onclick="insertEmoji(this)">📌</span>
+    <span onclick="insertEmoji(this)">📍</span>
+  </div>
+</div>
+
+<div class="emoji-category">
+  <div class="emoji-title">💰 거래</div>
+  <div class="emoji-grid">
+    <span onclick="insertEmoji(this)">💰</span>
+    <span onclick="insertEmoji(this)">💵</span>
+    <span onclick="insertEmoji(this)">💸</span>
+    <span onclick="insertEmoji(this)">💳</span>
+    <span onclick="insertEmoji(this)">🪙</span>
+  </div>
+</div>
+
+<div class="emoji-category">
+  <div class="emoji-title">🏢 팩션</div>
+  <div class="emoji-grid">
+    <span onclick="insertEmoji(this)">👮🏻</span>
+    <span onclick="insertEmoji(this)">🕋</span>
+    <span onclick="insertEmoji(this)">🚑</span>
+    <span onclick="insertEmoji(this)">🛠️</span>
+    <span onclick="insertEmoji(this)">🔥</span>
+    <span onclick="insertEmoji(this)">🧊</span>
+    <span onclick="insertEmoji(this)">🐝</span>
+    <span onclick="insertEmoji(this)">👑</span>
+    <span onclick="insertEmoji(this)">🌙</span>
+    <span onclick="insertEmoji(this)">⛽</span>
+    <span onclick="insertEmoji(this)">🤖</span>
+    <span onclick="insertEmoji(this)">⛩️</span>
+    <span onclick="insertEmoji(this)">☠️</span>
+    <span onclick="insertEmoji(this)">💎</span>
+    <span onclick="insertEmoji(this)">🎴</span>
+    <span onclick="insertEmoji(this)">🐣</span>
+  </div>
+</div>
+
+<div class="emoji-category">
+  <div class="emoji-title">❤️ 하트</div>
+  <div class="emoji-grid">
+    <span onclick="insertEmoji(this)">💌</span>
+    <span onclick="insertEmoji(this)">💕</span>
+    <span onclick="insertEmoji(this)">💗</span>
+    <span onclick="insertEmoji(this)">💖</span>
+    <span onclick="insertEmoji(this)">❤️</span>
+    <span onclick="insertEmoji(this)">🧡</span>
+    <span onclick="insertEmoji(this)">💛</span>
+    <span onclick="insertEmoji(this)">💚</span>
+    <span onclick="insertEmoji(this)">💙</span>
+    <span onclick="insertEmoji(this)">💜</span>
+    <span onclick="insertEmoji(this)">🖤</span>
+    <span onclick="insertEmoji(this)">🤍</span>
+    <span onclick="insertEmoji(this)">🎔</span>
+  </div>
+</div>
+
+<div class="emoji-category">
+  <div class="emoji-title">😀 표정</div>
+  <div class="emoji-grid">
+    <span onclick="insertEmoji(this)">😀</span>
+    <span onclick="insertEmoji(this)">😃</span>
+    <span onclick="insertEmoji(this)">😄</span>
+    <span onclick="insertEmoji(this)">😁</span>
+    <span onclick="insertEmoji(this)">😆</span>
+    <span onclick="insertEmoji(this)">😂</span>
+    <span onclick="insertEmoji(this)">🤣</span>
+    <span onclick="insertEmoji(this)">😊</span>
+    <span onclick="insertEmoji(this)">😍</span>
+    <span onclick="insertEmoji(this)">😎</span>
+    <span onclick="insertEmoji(this)">🤔</span>
+    <span onclick="insertEmoji(this)">😭</span>
+  </div>
+</div>
+</div>
+
+<div class="slider"> 
+  <div class="slide">
+    <a href="https://naver.com" target="_blank">
+      <img src="main_banner1.jpg">
+    </a>
+  </div>
+
+  <div class="slide">
+    <a href="https://naver.com" target="_blank">
+      <img src="main_banner2.jpg">
+    </a>
+  </div>
+
+  <div class="slide">
+    <a href="https://naver.com" target="_blank">
+      <img src="main_banner3.jpg">
+    </a>
+  </div>
+
+  <button class="prev">&#10094;</button>
+  <button class="next">&#10095;</button>
+</div>
+
+<div class="vertical-slider">
+  <div class="v-slide"> ^4[🤖뽀이칼텍스] ^0차량 운행에 필요한 ^4주유·엔진코팅·기름통⛽ ^0판매합니다. ^8(서부 주유소) </div>
+  <div class="v-slide"> ^7[🔥엠버] ^0배고픔을 채워주는 ^7스테이크🥩 ^0판매합니다. </div>
+  <div class="v-slide"> ^1[🧊투샷] ^0목마름을 채워주는 ^1딸바스무디🥤 ^0판매합니다. </div>
+  <div class="v-slide"> ^5[🛠️더 커스텀] ^0차량 수리에 필요한 ^5강화타이어·긴급수리도구🛠️ ^0판매합니다. </div>
+  <div class="v-slide"> ^7[🏥EMS] ^0긴급 소생과 체력을 보충하는 ^7체력 회복제💊 ^0판매합니다. </div>
+  <div class="v-slide"> ^9[⛽오일리] ^0차량 운행에 필요한 ^9주유·엔진코팅·기름통⛽ ^0판매합니다. ^8(동부 주유소) </div>
+  <div class="v-slide"> ^3[🐝벌집] ^0전투에 필요한 ^3방탄복·총기파츠류🔫 ^0판매합니다. </div>
+  <div class="v-slide"> ^8[👑백호자동차] ^0시그널의 모든 차량을 ^8중개·매입·판매🚗^0 합니다.</div>
+</div>
+
+<div class="floating-slider">
+  <div class="float-slide">
+    <a href="https://discord.gg/rw" target="_blank">
+      <img src="fbanner1.png" alt="플로팅1">
+    </a>
+  </div>
+
+  <div class="float-slide">
+    <a href="https://discord.gg/rw" target="_blank">
+      <img src="fbanner2.png" alt="플로팅2">
+    </a>
+  </div>
+
+  <div class="float-slide">
+    <a href="https://discord.gg/rw" target="_blank">
+      <img src="fbanner3.png" alt="플로팅3">
+    </a>
+  </div>
+
+  <div class="dots">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+</div>
+
+<div class="editor">
+
+<div class="paletteTitle">
+배경 컬러 
+<span class="paletteDesc">(인게임 내에서도 미리보기와 동일하게 배경이 구분됩니다.)</span>
+</div>
+
+<div class="palette">
+
+<div class="color bg1" onclick="insertColor('&1')">■ 1</div>
+<div class="color bg2" onclick="insertColor('&2')">■ 2</div>
+<div class="color bg3" onclick="insertColor('&3')">■ 3</div>
+<div class="color bg4" onclick="insertColor('&4')">■ 4</div>
+<div class="color bg5" onclick="insertColor('&5')">■ 5</div>
+<div class="color bg6" onclick="insertColor('&6')">■ 6</div>
+<div class="color bg7" onclick="insertColor('&7')">■ 7</div>
+<div class="color bg8" onclick="insertColor('&8')">■ 8</div>
+<div class="color bg9" onclick="insertColor('&9')">■ 9</div>
+
+</div>
+
+<div class="paletteTitle">
+텍스트 컬러
+<span class="paletteDesc">(텍스트를 드래그하여 기울임, 밑줄, 취소선 기능을 사용해 보세요.)</span>
+</div>
+
+<div class="palette">
+
+<div class="color c1" onclick="insertColor('^1')">● 1</div>
+<div class="color c2" onclick="insertColor('^2')">● 2</div>
+<div class="color c3" onclick="insertColor('^3')">● 3</div>
+<div class="color c4" onclick="insertColor('^4')">● 4</div>
+<div class="color c5" onclick="insertColor('^5')">● 5</div>
+<div class="color c6" onclick="insertColor('^6')">● 6</div>
+<div class="color c7" onclick="insertColor('^7')">● 7</div>
+<div class="color c8" onclick="insertColor('^8')">● 8</div>
+<div class="color c9" onclick="insertColor('^9')">● 9</div>
+<div class="color c0" onclick="insertColor('^0')">● 0</div>
+
+<div class="color style-btn" onclick="wrapText('**')"><i>기울임</i></div>
+<div class="color style-btn" onclick="wrapText('__')"><u>밑줄</u></div>
+<div class="color style-btn" onclick="wrapText('~~')"><s>취소선</s></div>
+
+</div>
+
+<div class="chat-info">
+  <input type="text" id="nickname" placeholder="닉네임 (예: 유나)">
+  <input type="text" id="userid" placeholder="고유번호 (예: 333)">
+</div>
+
+<textarea id="input" placeholder="상단의 컬러 버튼을 누른 후 텍스트를 입력해 보세요."></textarea>
+
+<div class="controls">
+<div id="copy-alert" class="copy-alert">복사됨!</div>
+<button onclick="copyText()">텍스트 복사</button>
+<button onclick="clearText()">초기화</button>
+
+</div>
+
+
+</div>
+
+<div class="previewBox">
+
+<div class="previewTitle">
+  컬러 텍스트 미리보기
+  <span class="previewDesc"> (인게임 내 채팅창과 동일하게 볼 수 있습니다.)</span>
+</div>
+
+<div class="preview" id="preview"></div>
+
+</div>
+
+<script>
+
+const input = document.getElementById("input")
+const preview = document.getElementById("preview")
+
+function wrapSymbols(text){
+  return text.replace(/[^a-zA-Z0-9가-힣\s]/g, function(ch){
+    return "<span class='symbol'>" + ch + "</span>";
+  });
+}
+
+input.addEventListener("input", updatePreview)
+
+function updatePreview(){
+
+let text = input.value
+
+text = text.replace(/</g,"&lt;").replace(/>/g,"&gt;")
+
+let result = ""
+
+let color = "c7"
+let bg = ""
+let bgOpen = false
+let buffer = ""
+
+
+let italic = false
+let underline = false
+let strike = false
+
+function flush(){
+if(buffer !== ""){
+
+let styled = buffer
+styled = wrapSymbols(styled)
+
+if (italic) styled = "<i>" + styled + "</i>"
+if (underline) styled = "<u>" + styled + "</u>"
+if (strike) styled = "<s>" + styled + "</s>"
+
+result += "<span class='"+color+"'>" + styled + "</span>"
+
+buffer=""
+}
+}
+
+for(let i=0;i<text.length;i++){
+
+if(text[i] === "&" && !isNaN(text[i+1])){
+flush()
+  
+if(bgOpen){
+  result += "</span>"
+}
+
+bg = "bg"+text[i+1]
+result += "<span class='"+bg+"'>"
+bgOpen = true
+
+i++
+continue
+}
+
+if(text[i] === "_" && text[i+1] === "_"){
+flush()
+underline = !underline
+i++
+continue
+}
+
+if(text[i] === "~" && text[i+1] === "~"){
+flush()
+strike = !strike
+i++
+continue
+}
+
+if(text[i] === "^" && !isNaN(text[i+1])){
+flush()
+color = "c"+text[i+1]
+i++
+continue
+}
+
+if(text[i] === "&" && !isNaN(text[i+1])){
+flush()
+bg = "bg"+text[i+1]
+i++
+continue
+}
+
+if(text[i] === "*" && text[i+1] === "*"){
+  flush()
+  italic = !italic
+  i++
+  continue
+}
+
+if(text[i] === "\n"){
+flush()
+result += "<br>&nbsp;"
+continue
+}
+
+buffer += text[i]
+}
+
+flush()
+
+if(bgOpen){
+  result += "</span>"
+}
+
+const nickname = document.getElementById("nickname").value || "닉네임"
+const userId = document.getElementById("userid").value || "0000"
+
+preview.innerHTML =
+"<span class='chat-name'>" + nickname + "</span>" +
+"<span class='chat-id'>(" + userId + "):</span>" +
+result
+
+}
+
+function insertColor(code){
+
+let start = input.selectionStart
+let end = input.selectionEnd
+let text = input.value
+
+input.value = text.substring(0,start) + code + text.substring(end)
+
+input.focus()
+input.selectionStart = input.selectionEnd = start + code.length
+
+updatePreview()
+
+}
+
+function copyText() {
+  navigator.clipboard.writeText(input.value);
+
+  const alertBox = document.getElementById("copy-alert");
+  alertBox.classList.add("show");
+
+  setTimeout(() => {
+    alertBox.classList.remove("show");
+  }, 1500);
+}
+
+function clearText(){
+
+input.value=""
+preview.innerHTML=""
+}
+
+function insertEmoji(el) {
+  const emoji = el.textContent; 
+  const textarea = document.getElementById("input");
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+  const text = textarea.value;
+
+  textarea.value = text.substring(0, start) + emoji + text.substring(end);
+  textarea.focus();
+  textarea.selectionStart = textarea.selectionEnd = start + emoji.length;
+
+  updatePreview();
+}
+
+const sidebar = document.getElementById("emoji-sidebar");
+const toggleBtn = document.getElementById("emoji-toggle");
+
+toggleBtn.addEventListener("click", () => {
+  sidebar.classList.toggle("collapsed");
+});
+
+function wrapText(wrapper){
+
+  const start = input.selectionStart
+  const end = input.selectionEnd
+  const text = input.value
+
+  if(start === end) return 
+
+  const selected = text.substring(start, end)
+
+  const newText = 
+    text.substring(0, start) +
+    wrapper + selected + wrapper +
+    text.substring(end)
+
+  input.value = newText
+
+  input.focus()
+  input.selectionStart = start
+  input.selectionEnd = end + wrapper.length * 2
+
+  updatePreview()
+}
+
+
+</script>
+
+<footer class="footerText">
+ 배너 게시 및 텍스트 광고 게시 문의 <br>
+⚙️Discord yu.naaa ┃ 💜시그널 유나·333
+</footer>
+
+
+<script>
+ let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+
+function showSlide(index) {
+  slides.forEach((slide, i) => slide.style.opacity = i === index ? 1 : 0);
+}
+
+let slideInterval = setInterval(() => {
+  current = (current + 1) % total;
+  showSlide(current);
+}, 5000);
+
+document.querySelector('.prev').addEventListener('click', () => {
+  current = (current - 1 + total) % total;
+  showSlide(current);
+  resetInterval();
+});
+
+document.querySelector('.next').addEventListener('click', () => {
+  current = (current + 1) % total;
+  showSlide(current);
+  resetInterval();
+});
+
+function resetInterval() {
+  clearInterval(slideInterval);
+  slideInterval = setInterval(() => {
+    current = (current + 1) % total;
+    showSlide(current);
+  }, 3000);
+}
+
+showSlide(current);
+
+let floatCurrent = 0;
+const floatSlides = document.querySelectorAll('.float-slide');
+const floatDots = document.querySelectorAll('.dot');
+const floatTotal = floatSlides.length;
+
+function showFloatSlide(index) {
+  floatSlides.forEach((slide, i) => slide.style.opacity = i === index ? 1 : 0);
+  floatDots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+}
+
+let floatInterval = setInterval(() => {
+  floatCurrent = (floatCurrent + 1) % floatTotal;
+  showFloatSlide(floatCurrent);
+}, 3000);
+
+floatDots.forEach((dot, i) => {
+  dot.addEventListener('mouseenter', () => {
+    floatCurrent = i;
+    showFloatSlide(floatCurrent);
+    resetFloatInterval();
+  });
+});
+
+function resetFloatInterval() {
+  clearInterval(floatInterval);
+  floatInterval = setInterval(() => {
+    floatCurrent = (floatCurrent + 1) % floatTotal;
+    showFloatSlide(floatCurrent);
+  }, 3000);
+}
+
+showFloatSlide(floatCurrent);
+
+let vCurrent = 0;
+const vSlides = document.querySelectorAll('.v-slide');
+const vTotal = vSlides.length;
+
+function showVSlide(index) {
+  vSlides.forEach((slide, i) => {
+    if(i === index){
+      slide.style.opacity = 1;
+      slide.style.transform = "translateY(0)";
+    } else {
+      slide.style.opacity = 0;
+      slide.style.transform = "translateY(100%)";
+    }
+  });
+}
+
+showVSlide(vCurrent);
+setInterval(() => {
+  vCurrent = (vCurrent + 1) % vTotal;
+  showVSlide(vCurrent);
+}, 3000); 
+
+const colorMap = {
+  '0': '#ffffff',
+  '1': '#FFC7DF',
+  '2': '#afec61',
+  '3': '#ffff9f',
+  '4': '#7bd8ff',
+  '5': '#e5c3ff',
+  '6': '#b3fdbd',
+  '7': '#FF3D3D',
+  '8': '#b1afb2',
+  '9': '#ffd256'
+};
+
+function applyColorCodes(text) {
+
+  return text.replace(/\^(\d)([^^]+)/g, (match, code, content) => {
+    const color = colorMap[code] || '#fff';
+    return `<span style="color:${color}">${content}</span>`;
+  });
+}
+
+
+document.querySelectorAll('.v-slide').forEach(slide => {
+  slide.innerHTML = applyColorCodes(slide.textContent);
+});
+
+
+</script>
+
+</body>
+</html>
