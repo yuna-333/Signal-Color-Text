@@ -107,6 +107,7 @@ body{
   width:100%;
 }
 
+/* 상단 우측 필터 및 검색 영역 그룹 */
 .controls-area {
   display: flex;
   gap: 8px;
@@ -206,6 +207,7 @@ body{
   transform: scale(1.05);
 }
 
+/* 갤러리 썸네일 좌측 상단 작은 뱃지 스타일 */
 .thumb-badge {
   position: absolute;
   top: 8px;
@@ -218,6 +220,7 @@ body{
   backdrop-filter: blur(4px);
 }
 
+/* 공통 뱃지 색상 테마 클래스 */
 .badge-premium {
   background: rgba(255, 215, 0, 0.2);
   color: #ffd700;
@@ -249,6 +252,7 @@ body{
   margin-bottom: 0;
 }
 
+/* 앨범형 좌우 배치 모달 스타일 */
 .modal {
   display: none;
   position: fixed;
@@ -659,6 +663,16 @@ body{
       </div>
     </div>	
 		
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%EC%88%98%EC%95%84.png', '수아', '예쁜 인간형 여성 스킨 입니다.', '이벤트 아이템', 'event')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%EC%88%98%EC%95%84.png" alt="수아">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">수아</div>
+      </div>
+    </div>	
+	
     <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%ED%98%91%EA%B3%A1%20%EC%97%AC%EC%A0%84%EC%82%AC.png', '협곡 여전사', '용맹하고 멋진 협곡 여전사 스킨 입니다.', '이벤트 아이템', 'event')">
       <div class="gallery-img-wrap">
         <div class="thumb-badge badge-event">이벤트</div>
