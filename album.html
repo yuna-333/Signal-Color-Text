@@ -2,10 +2,9 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>시그널 포토 갤러리</title>
+<title>시그널 치장 아이템</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FSBT5ELEKN"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -65,7 +64,7 @@ body{
 
 .nav-links{
   display:flex;
-  gap:30px;
+  gap:25px;
 }
 
 .nav-links a{
@@ -107,6 +106,41 @@ body{
   width:100%;
 }
 
+/* 상단 우측 필터 및 검색 영역 그룹 */
+.controls-area {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.filter-select, .search-area input {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: white;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.filter-select {
+  cursor: pointer;
+}
+
+.filter-select:focus, .search-area input:focus {
+  border-color: #7aa2ff;
+  box-shadow: 0 0 6px rgba(122,162,255,0.4);
+}
+
+.search-area input {
+  width: 150px;
+}
+
+.search-area input::placeholder {
+  color: #777;
+}
+
 .gallery-container {
   padding: 40px 20px;
 }
@@ -129,35 +163,42 @@ body{
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
 }
 
 .gallery-item {
   background: #111;
   border: 1px solid #333;
-  border-radius: 12px;
+  border-radius: 8px;
   overflow: hidden;
   transition: transform 0.2s ease, border-color 0.2s ease;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
 }
 
 .gallery-item:hover {
-  transform: translateY(-4px);
+  transform: translateY(-2px);
   border-color: #555;
 }
 
 .gallery-img-wrap {
   width: 100%;
-  height: 200px;
+  height: 0;
+  padding-bottom: 100%; 
+  position: relative;
   overflow: hidden;
-  background: #1a1a1a;
+  background: #000;
 }
 
 .gallery-img-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
   transition: transform 0.3s ease;
 }
 
@@ -165,23 +206,52 @@ body{
   transform: scale(1.05);
 }
 
+/* 갤러리 썸네일 좌측 상단 작은 뱃지 스타일 */
+.thumb-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 12px;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
+
+/* 공통 뱃지 색상 테마 클래스 */
+.badge-premium {
+  background: rgba(255, 215, 0, 0.2);
+  color: #ffd700;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+}
+.badge-event {
+  background: rgba(122, 162, 255, 0.2);
+  color: #7aa2ff;
+  border: 1px solid rgba(122, 162, 255, 0.4);
+}
+.badge-limited {
+  background: rgba(255, 107, 107, 0.2);
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 107, 107, 0.4);
+}
+
 .gallery-info {
-  padding: 16px;
+  padding: 10px;
+  text-align: center;
 }
 
 .gallery-title {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: #fff;
-}
-
-.gallery-desc {
   font-size: 13px;
-  opacity: 0.6;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0;
 }
 
-/* 모달 스타일 */
+/* 앨범형 좌우 배치 모달 스타일 */
 .modal {
   display: none;
   position: fixed;
@@ -198,11 +268,79 @@ body{
   box-sizing: border-box;
 }
 
-.modal img {
-  max-width: 90%;
-  max-height: 85vh;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+.modal-content-wrap {
+  display: flex;
+  background: #161616;
+  border: 1px solid #333;
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+}
+
+.modal-img-area {
+  flex: 1;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.modal-img-area img {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.modal-info-area {
+  flex: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+/* 모달 내부 뱃지 스타일 */
+.modal-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  width: fit-content;
+}
+.modal-badge.premium {
+  background: rgba(255, 215, 0, 0.15);
+  color: #ffd700;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+}
+.modal-badge.event {
+  background: rgba(122, 162, 255, 0.15);
+  color: #7aa2ff;
+  border: 1px solid rgba(122, 162, 255, 0.4);
+}
+.modal-badge.limited {
+  background: rgba(255, 107, 107, 0.15);
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 107, 107, 0.4);
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.modal-desc {
+  font-size: 14px;
+  color: #aaa;
+  line-height: 1.5;
 }
 
 .modal-close {
@@ -214,6 +352,7 @@ body{
   font-weight: bold;
   cursor: pointer;
   transition: opacity 0.2s;
+  z-index: 2010;
 }
 
 .modal-close:hover {
@@ -227,6 +366,45 @@ body{
   opacity:0.5;
   font-size:13px;
 }
+
+@media (max-width: 768px) {
+  .modal-content-wrap {
+    flex-direction: column;
+    max-width: 90%;
+  }
+  .modal-info-area {
+    padding: 20px;
+    text-align: center;
+  }
+  .modal-badge {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .navbar {
+    padding: 12px 20px;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .controls-area {
+    width: 100%;
+    justify-content: center;
+  }
+  .search-area input {
+    width: 140px;
+  }
+}
 </style>
 </head>
 
@@ -238,74 +416,431 @@ body{
     <div class="logo"></div>
     <div class="nav-links">
       <a href="index.html">컬러 텍스트</a>
-      <a href="album.html" class="active">포토 갤러리</a>
+      <a href="album.html" class="active">치장 아이템</a>
+      <a href="skin.html">스킨 아이템</a>
+    </div>
+  </div>
+
+  <div class="controls-area">
+    <select id="categoryFilter" class="filter-select" onchange="filterGallery()">
+      <option value="all">전체보기</option>
+      <option value="premium">프리미엄 상점</option>
+      <option value="event">이벤트 아이템</option>
+      <option value="limited">한정 아이템</option>
+    </select>
+    <div class="search-area">
+      <input type="text" id="searchInput" placeholder="아이템명 검색" oninput="filterGallery()">
     </div>
   </div>
 </nav>
 
 <div class="gallery-container">
   <div class="gallery-header">
-    <h1>시그널 포토 갤러리</h1>
-    <p>다양한 순간들과 소중한 추억들을 모아둔 공간입니다.</p>
+    <h1>시그널 치장 아이템</h1>
+    <p>순차적으로 업로드 될 예정이며, 출시 정보가 잘못 표기 되었을 경우 정정 요청 부탁드립니다. ⚙️Discord ye.naaa</p>
   </div>
 
-  <div class="gallery-grid">
-    <!-- 갤러리 아이템 1 -->
-    <div class="gallery-item" onclick="openModal('banner1.jpg', '희망♥욕망', '두 분의 사랑을 응원합니다 ! ')">
+  <div class="gallery-grid" id="galleryGrid">
+
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%EA%B3%A0%EB%8C%80%20%EB%A1%9C%EB%A7%88%EC%9D%98%20%EC%9C%99.png', '고대 로마의 윙', '고대 로마의 감성을 담은 윙 아이템입니다.', '이벤트 아이템', 'event')">
       <div class="gallery-img-wrap">
-        <img src="banner1.jpg" alt="갤러리 이미지1">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%EA%B3%A0%EB%8C%80%20%EB%A1%9C%EB%A7%88%EC%9D%98%20%EC%9C%99.png" alt="고대 로마의 윙">
       </div>
       <div class="gallery-info">
-        <div class="gallery-title">희망♥욕망</div>
-        <div class="gallery-desc">두 분의 사랑을 응원합니다 ! </div>
+        <div class="gallery-title">고대 로마의 윙</div>
       </div>
     </div>
 
-    <!-- 갤러리 아이템 2 -->
-    <div class="gallery-item" onclick="openModal('banner2.jpg', '부자가 될 테야', '당신의 바램을 응원합니다 ! ')">
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%EA%B3%A0%EC%96%91%EC%9D%B4%ED%97%A4%EB%93%9C%EC%85%8B%20%EA%B7%B8%EB%A6%B0.png?updatedAt=1789402699487', '고양이 헤드셋(그린)', '상큼한 그린 컬러의 고양이 헤드셋입니다.', '이벤트 아이템', 'event')">
       <div class="gallery-img-wrap">
-        <img src="banner2.jpg" alt="갤러리 이미지2">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%EA%B3%A0%EC%96%91%EC%9D%B4%ED%97%A4%EB%93%9C%EC%85%8B%20%EA%B7%B8%EB%A6%B0.png?updatedAt=1789402699487" alt="고양이 헤드셋(그린)">
       </div>
       <div class="gallery-info">
-        <div class="gallery-title">부자가 될 테야</div>
-        <div class="gallery-desc">당신의 바램을 응원합니다 ! </div>
+        <div class="gallery-title">고양이 헤드셋(그린)</div>
       </div>
     </div>
 
-    <!-- 갤러리 아이템 3 -->
-    <div class="gallery-item" onclick="openModal('banner3.jpg', '사진 게시해 드립니다. ', '디스코드 yu.naaa DM 주세요 ! ')">
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%EA%B3%A0%EC%96%91%EC%9D%B4%ED%97%A4%EB%93%9C%EC%85%8B%20%EC%98%90%EB%A1%9C%EC%9A%B0.png?updatedAt=1789402699687', '고양이 헤드셋(옐로우)', '발랄한 옐로우 컬러의 고양이 헤드셋입니다.', '이벤트 아이템', 'event')">
       <div class="gallery-img-wrap">
-        <img src="banner3.jpg" alt="갤러리 이미지3">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%EA%B3%A0%EC%96%91%EC%9D%B4%ED%97%A4%EB%93%9C%EC%85%8B%20%EC%98%90%EB%A1%9C%EC%9A%B0.png?updatedAt=1789402699687" alt="고양이 헤드셋(옐로우)">
       </div>
       <div class="gallery-info">
-        <div class="gallery-title">사진 게시해 드립니다.</div>
-        <div class="gallery-desc">디스코드 ye.naaa DM 주세요 ! </div>
+        <div class="gallery-title">고양이 헤드셋(옐로우)</div>
       </div>
     </div>
+
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%EA%B3%A0%EC%96%91%EC%9D%B4%ED%97%A4%EB%93%9C%EC%85%8B%20%ED%95%91%ED%81%AC.png', '고양이 헤드셋(핑크)', '사랑스러운 핑크 컬러의 고양이 헤드셋입니다.', '이벤트 아이템', 'event')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%EA%B3%A0%EC%96%91%EC%9D%B4%ED%97%A4%EB%93%9C%EC%85%8B%20%ED%95%91%ED%81%AC.png" alt="고양이 헤드셋(핑크)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">고양이 헤드셋(핑크)</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%EA%B3%B0%20%EC%96%BC%EA%B5%B4%20%EC%9E%A5%EC%8B%9D.png?updatedAt=1789402699579', '곰 얼굴 장식', '귀여운 곰 얼굴 모양의 장식 아이템입니다.', '이벤트 아이템', 'event')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%EA%B3%B0%20%EC%96%BC%EA%B5%B4%20%EC%9E%A5%EC%8B%9D.png?updatedAt=1789402699579" alt="곰 얼굴 장식">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">곰 얼굴 장식</div>
+      </div>
+    </div>
+	
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%EA%B7%80%EC%9A%94%EB%AF%B8%20%EB%8D%B0%EB%B9%8C%20%EC%9C%99%EB%B4%89.png?updatedAt=1789402699481', '귀요미 데빌 윙봉', '앙증맞은 장난꾸러기 콘셉트의 데빌 윙봉입니다.', '이벤트 아이템', 'event')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%EA%B7%80%EC%9A%94%EB%AF%B8%20%EB%8D%B0%EB%B9%8C%20%EC%9C%99%EB%B4%89.png?updatedAt=1789402699481" alt="귀요미 데빌 윙봉">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">귀요미 데빌 윙봉</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%EA%B7%80%EC%9A%94%EB%AF%B8%20%EC%97%94%EC%A0%A4%20%EC%9C%99%EB%B4%89.png?updatedAt=1789402699558', '귀요미 엔젤 윙봉', '청순하고 귀여운 엔젤 윙봉입니다.', '이벤트 아이템', 'event')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%EA%B7%80%EC%9A%94%EB%AF%B8%20%EC%97%94%EC%A0%A4%20%EC%9C%99%EB%B4%89.png?updatedAt=1789402699558" alt="귀요미 엔젤 윙봉">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">귀요미 엔젤 윙봉</div>
+      </div>
+    </div>
+	
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/%EA%BD%83%EC%9E%8E%EB%B9%84.webp', '꽃잎비 이펙트', '주변을 화사하게 만들어주는 꽃잎비 이펙트입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/%EA%BD%83%EC%9E%8E%EB%B9%84.webp" alt="꽃잎비 이펙트">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">꽃잎비 이펙트</div>
+      </div>
+    </div>
+			
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/%EB%A3%A8%EB%B9%84%20%EB%B2%84%EB%8B%88%20%EA%B7%80.webp', '루비 버니 귀', '귀여운 토끼 귀 모양의 치장 아이템입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/%EB%A3%A8%EB%B9%84%20%EB%B2%84%EB%8B%88%20%EA%B7%80.webp" alt="루비 버니 귀">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">루비 버니 귀</div>
+      </div>
+    </div>
+				
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/%EB%A3%A8%EB%B9%84%20%EB%B2%84%EB%8B%88%20%ED%81%AC%EB%A1%9C%EC%8A%A4%EB%B0%B1.webp', '루비 버니 크로스백', '실용적이고 깜찍한 루비 버니 크로스백입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/%EB%A3%A8%EB%B9%84%20%EB%B2%84%EB%8B%88%20%ED%81%AC%EB%A1%9C%EC%8A%A4%EB%B0%B1.webp" alt="루비 버니 크로스백">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">루비 버니 크로스백</div>
+      </div>
+    </div>
+		
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%EB%A3%A8%ED%94%BC%20%EB%8C%80%EC%99%95%EA%B3%A0%EA%B8%B0%20%EA%B0%80%EB%B0%A9.png?updatedAt=1789402699714', '루피 대왕고기', '유쾌한 포인트를 주는 대왕고기 가방입니다.', '이벤트 아이템', 'event')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%EB%A3%A8%ED%94%BC%20%EB%8C%80%EC%99%95%EA%B3%A0%EA%B8%B0%20%EA%B0%80%EB%B0%A9.png?updatedAt=1789402699714" alt="루피 대왕고기">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">루피 대왕고기</div>
+      </div>
+    </div>
+		
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/%EC%82%AC%EB%9E%91%EC%9D%98%ED%95%98%ED%94%84.webp', '사랑의 하프', '아름다운 선율이 들릴 것 같은 하프 아이템입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/%EC%82%AC%EB%9E%91%EC%9D%98%20%ED%95%98%ED%94%84.png?updatedAt=1789435667778" alt="사랑의 하프">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">사랑의 하프</div>
+      </div>
+    </div>
+	
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%EC%95%84%EB%A0%88%EC%8A%A4%20%ED%88%AC%EA%B5%AC.png?updatedAt=1789402699681', '아레스 투구', '든든하고 멋스러운 아레스 투구입니다.', '이벤트 아이템', 'event')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%EC%95%84%EB%A0%88%EC%8A%A4%20%ED%88%AC%EA%B5%AC.png?updatedAt=1789402699681" alt="아레스 투구">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">아레스 투구</div>
+      </div>
+    </div>
+	
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/%EC%97%AC%EC%9A%B0%EA%BC%AC%EB%A6%AC.webp', '여우 꼬리', '살랑살랑 매력적인 여우 꼬리 아이템입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/%EC%97%AC%EC%9A%B0%EA%BC%AC%EB%A6%AC2.webp" alt="여우 꼬리">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">여우 꼬리</div>
+      </div>
+    </div>
+		
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/%EC%9D%80%EB%B9%9B2.webp', '은빛여왕의 깃털날개', '영롱한 빛을 내뿜는 은빛여왕의 깃털날개입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/%EC%9D%80%EB%B9%9B1.webp" alt="은빛여왕의 깃털날개">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">은빛여왕의 깃털날개</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%EC%A7%9C%EC%A7%9C%EC%9D%98%EC%98%81%ED%98%BC.png', '짜짜의 영혼', '신비한 분위기를 자아내는 짜짜의 영혼입니다.', '이벤트 아이템', 'event')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%EC%A7%9C%EC%A7%9C%EC%9D%98%EC%98%81%ED%98%BC.png" alt="짜짜의 영혼">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">짜짜의 영혼</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%EC%B6%94%EC%84%9D%20%ED%86%A0%EB%81%BC%EC%84%B8%ED%8A%B8.webp', '추석 토끼 세트', '명절 분위기를 더해주는 추석 토끼 세트입니다.', '이벤트 아이템', 'event')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%EC%B6%94%EC%84%9D%20%ED%86%A0%EB%81%BC%EC%84%B8%ED%8A%B8.webp" alt="추석 토끼 세트">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">추석 토끼 세트</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%ED%92%8D%EC%84%A0.webp', '풍선', '알록달록 기분 좋은 풍선 아이템입니다.', '이벤트 아이템', 'event')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%ED%92%8D%EC%84%A0.webp" alt="풍선">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">풍선</div>
+      </div>
+    </div>
+    
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%ED%95%A0%EB%A1%9C%EC%9C%88%EC%9C%A0%EB%A0%B9%EC%B9%98%EC%9E%A5.png', '할로윈 유령 치장', '으스스하면서도 귀여운 할로윈 유령 치장입니다.', '이벤트 아이템', 'event')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%ED%95%A0%EB%A1%9C%EC%9C%88%EC%9C%A0%EB%A0%B9%EC%B9%98%EC%9E%A5.png" alt="할로윈 유령 치장">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">할로윈 유령 치장</div>
+      </div>
+    </div>
+		
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%ED%95%A0%EB%A1%9C%EC%9C%88%EC%9D%B8%ED%98%95%EC%B9%98%EC%9E%A5.png', '할로윈 인형 치장', '독특한 매력의 할로윈 인형 치장입니다.', '이벤트 아이템', 'event')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%ED%95%A0%EB%A1%9C%EC%9C%88%EC%9D%B8%ED%98%95%EC%B9%98%EC%9E%A5.png" alt="할로윈 인형 치장">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">할로윈 인형 치장</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%ED%95%A0%EB%A1%9C%EC%9C%88%ED%98%B8%EB%B0%95%EC%B9%98%EC%9E%A5.png?updatedAt=1789402699595', '할로윈 호박 치장', '할로윈 축제에 빠질 수 없는 호박 치장입니다.', '이벤트 아이템', 'event')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%ED%95%A0%EB%A1%9C%EC%9C%88%ED%98%B8%EB%B0%95%EC%B9%98%EC%9E%A5.png?updatedAt=1789402699595" alt="할로윈 호박 치장">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">할로윈 호박 치장</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%ED%99%94%EB%82%9C%EA%B3%B0%EB%AA%A8%EC%9E%90.png?updatedAt=1789402699727', '화난 곰 모자', '시무룩하면서도 화난 표정이 매력적인 곰 모자입니다.', '이벤트 아이템', 'event')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%ED%99%94%EB%82%9C%EA%B3%B0%EB%AA%A8%EC%9E%90.png?updatedAt=1789402699727" alt="화난 곰 모자">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">화난 곰 모자</div>
+      </div>
+    </div>
+	
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%EC%97%94%EC%A0%A4%20%EC%8A%A4%EC%B9%B4%EC%9D%B4%20%EC%9C%99.png', '엔젤 스카이 윙', '하늘빛의 청량함을 담은 엔젤 스카이 윙입니다.', '이벤트 아이템', 'event')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%EC%97%94%EC%A0%A4%20%EC%8A%A4%EC%B9%B4%EC%9D%B4%20%EC%9C%99.png" alt="엔젤 스카이 윙">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">엔젤 스카이 윙</div>
+      </div>
+    </div>
+	
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%ED%83%80%EC%9D%B4%ED%83%84%20%EA%B0%80%EB%B0%A9.png', '타이탄 가방', '묵직하고 튼튼해 보이는 타이탄 가방입니다.', '이벤트 아이템', 'event')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%ED%83%80%EC%9D%B4%ED%83%84%20%EA%B0%80%EB%B0%A9.png" alt="타이탄 가방">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">타이탄 가방</div>
+      </div>
+    </div>
+	
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%EA%B3%A0%EC%96%91%EC%9D%B4%ED%97%A4%EB%93%9C%EC%85%8B%20%EB%B8%94%EB%A3%A8.png', '고양이 헤드셋 (블루)', '시원한 블루 컬러의 고양이 헤드셋입니다.', '이벤트 아이템', 'event')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%EA%B3%A0%EC%96%91%EC%9D%B4%ED%97%A4%EB%93%9C%EC%85%8B%20%EB%B8%94%EB%A3%A8.png" alt="고양이 헤드셋 (블루)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">고양이 헤드셋 (블루)</div>
+      </div>
+    </div>	
+	
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/%EC%9B%94%EA%B4%91%20%EC%9D%80%ED%95%98%EC%88%98.webp', '월광 은하수', '밤하늘의 은하수를 품은 듯한 월광 은하수 아이템입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/%EC%9B%94%EA%B4%91%20%EC%9D%80%ED%95%98%EC%88%98.webp" alt="월광 은하수">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">월광 은하수</div>
+      </div>
+    </div>	
+		
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/%EB%B6%88%EC%8B%A0%EB%B6%88%EC%9E%A51.webp', '불타는 장갑 / 신발', '손과 발에 불꽃이 화르륵 타오르며 모션 시 선명한 불꽃 라인이 그려지는 이펙트 아이템입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/%EB%B6%88%EC%8B%A0%EB%B6%88%EC%9E%A5.webp" alt="불타는 장갑 / 신발">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">불타는 장갑 / 신발</div>
+      </div>
+    </div>	
+			
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/%EC%8A%A4%EC%B9%B4%EC%9D%B41.webp', '리본 이펙트(스카이) / 리본 신발(스카이)', '손과 발에 스카이 컬러의 불꽃이 타오르며 모션 시 잔상 라인이 그려지는 이펙트 아이템입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/%EC%8A%A4%EC%B9%B4%EC%9D%B4.webp" alt="리본 이펙트(스카이) / 리본 신발(스카이)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">리본 이펙트(스카이) / 리본 신발(스카이)</div>
+      </div>
+    </div>	
+				
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/%ED%8D%BC%ED%94%8C1.webp', '리본 이펙트(퍼플) / 리본 신발(퍼플)', '손과 발에 퍼플 컬러의 불꽃이 타오르며	모션 시 잔상 라인이 그려지는 이펙트 아이템입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/%ED%8D%BC%ED%94%8C.webp" alt="리본 이펙트(퍼플) / 리본 신발(퍼플)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">리본 이펙트(퍼플) / 리본 신발(퍼플)</div>
+      </div>
+    </div>	
+				
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/%ED%95%91%ED%81%AC1.webp', '리본 이펙트(핑크) / 리본 신발(핑크)', '손과 발에 핑크 컬러의 불꽃이 타오르며 모션 시 잔상 라인이 그려지는 이펙트 아이템입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/%ED%95%91%ED%81%AC.webp" alt="리본 이펙트(핑크) / 리본 신발(핑크)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">리본 이펙트(핑크) / 리본 신발(핑크)</div>
+      </div>
+    </div>	
+				
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/%EB%A0%88%EC%9D%B8%EB%B3%B4%EC%9A%B01.webp', '레인보우 리본 장갑 / 신발', '손과 발에 레인보우 불꽃이 타오르며 모션 시 잔상 라인이 그려지는 이펙트 아이템입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/%EB%A0%88%EC%9D%B8%EB%B3%B4%EC%9A%B0.webp" alt="레인보우 리본 장갑 / 신발">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">레인보우 리본 장갑 / 신발</div>
+      </div>
+    </div>	
   </div>
 </div>
 
-<!-- 이미지 확대 모달 -->
 <div class="modal" id="imageModal" onclick="closeModal()">
   <span class="modal-close">&times;</span>
-  <img id="modalImg" src="" alt="확대 이미지">
+  <div class="modal-content-wrap" onclick="event.stopPropagation()">
+    <div class="modal-img-area">
+      <img id="modalImg" src="" alt="확대 이미지">
+    </div>
+    <div class="modal-info-area">
+      <div id="modalBadge" class="modal-badge"></div>
+      <div id="modalTitle" class="modal-title"></div>
+      <div id="modalDesc" class="modal-desc"></div>
+    </div>
+  </div>
 </div>
 
 <footer class="footerText">
   배너 게시 및 텍스트 광고 게시 문의 <br>
-  ⚙️Discord yu.naaa ┃ 💜시그널 유나·333
+  ⚙️Discord ye.naaa ┃ 💜시그널 예나·333
 </footer>
 
 <script>
-function openModal(src, title, desc) {
+window.addEventListener('DOMContentLoaded', () => {
+  sortGalleryToAsc();
+});
+
+function sortGalleryToAsc() {
+  const grid = document.getElementById('galleryGrid');
+  let items = Array.from(grid.getElementsByClassName('gallery-item'));
+
+  items.sort((a, b) => {
+    const titleA = a.querySelector('.gallery-title').textContent.trim();
+    const titleB = b.querySelector('.gallery-title').textContent.trim();
+    return titleA.localeCompare(titleB, 'ko');
+  });
+
+  items.forEach(item => {
+    grid.appendChild(item);
+  });
+}
+
+function openModal(src, title, desc, badgeText, badgeClass) {
   const modal = document.getElementById('imageModal');
   const modalImg = document.getElementById('modalImg');
+  const modalBadge = document.getElementById('modalBadge');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  
   modalImg.src = src;
+  modalTitle.textContent = title;
+  modalDesc.textContent = desc || '설명이 없습니다.';
+
+  if (badgeText) {
+    modalBadge.textContent = badgeText;
+    modalBadge.className = 'modal-badge ' + (badgeClass || '');
+    modalBadge.style.display = 'inline-block';
+  } else {
+    modalBadge.style.display = 'none';
+  }
+  
   modal.style.display = 'flex';
 }
 
 function closeModal() {
   document.getElementById('imageModal').style.display = 'none';
+}
+
+function filterGallery() {
+  const categoryFilter = document.getElementById('categoryFilter').value;
+  const searchInput = document.getElementById('searchInput');
+  const filterText = searchInput.value.toLowerCase().trim();
+  const grid = document.getElementById('galleryGrid');
+  const items = grid.getElementsByClassName('gallery-item');
+
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    const category = item.getAttribute('data-category');
+    const titleElem = item.getElementsByClassName('gallery-title')[0];
+    const textValue = titleElem ? (titleElem.textContent || titleElem.innerText).toLowerCase() : '';
+
+    const matchesCategory = (categoryFilter === 'all' || category === categoryFilter);
+    const matchesSearch = (textValue.indexOf(filterText) > -1);
+
+    if (matchesCategory && matchesSearch) {
+      item.style.display = ""; 
+    } else {
+      item.style.display = "none"; 
+    }
+  }
 }
 </script>
 
