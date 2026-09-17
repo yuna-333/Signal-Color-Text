@@ -107,7 +107,6 @@ body{
   width:100%;
 }
 
-/* 상단 우측 필터 및 검색 영역 그룹 */
 .controls-area {
   display: flex;
   gap: 8px;
@@ -207,7 +206,6 @@ body{
   transform: scale(1.05);
 }
 
-/* 갤러리 썸네일 좌측 상단 작은 뱃지 스타일 */
 .thumb-badge {
   position: absolute;
   top: 8px;
@@ -220,7 +218,6 @@ body{
   backdrop-filter: blur(4px);
 }
 
-/* 공통 뱃지 색상 테마 클래스 */
 .badge-premium {
   background: rgba(255, 215, 0, 0.2);
   color: #ffd700;
@@ -252,7 +249,6 @@ body{
   margin-bottom: 0;
 }
 
-/* 앨범형 좌우 배치 모달 스타일 */
 .modal {
   display: none;
   position: fixed;
@@ -367,6 +363,18 @@ body{
   opacity:0.5;
   font-size:13px;
 }
+.nav-links a svg {
+  width: 13px;
+  height: 13px;
+  margin-left: 4px;
+  fill: currentColor;
+  vertical-align: -1px;
+  opacity: 0.7;
+}
+
+.nav-links a:hover svg {
+  opacity: 1;
+}
 
 @media (max-width: 768px) {
   .modal-content-wrap {
@@ -415,11 +423,19 @@ body{
   <div class="logo-area">
     <a href="index.html" class="home-btn">⌂</a>
     <div class="logo"></div>
-    <div class="nav-links">
-      <a href="index.html">컬러 텍스트</a>
-      <a href="album.html">치장 아이템</a>
-      <a href="skin.html" class="active">스킨 아이템</a>
-    </div>
+	
+  <div class="nav-links">
+    <a href="index.html">컬러 텍스트</a>
+    <a href="album.html">치장 아이템</a>
+    <a href="skin.html" class="active">스킨 아이템</a>
+	<a href="https://docs.google.com/document/d/1hdicbc5beJaFyY99g1BqVa02r5oecrAOnFzxUS94ezU/edit?tab=t.2jm1qtotfr85" target="_blank">
+      차량 및 액션 메뉴
+      <svg aria-hidden="true" data-component="Octicon" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-link-external">
+        <path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2Zm6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1Z"></path>
+      </svg>
+    </a>
+  </div>
+	
   </div>
 
   <div class="controls-area">
@@ -506,7 +522,7 @@ body{
     <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/%ED%81%90%ED%8B%B0%EB%AA%BD%ED%82%A4.png', '큐티 몽키 스킨', '귀여운 원숭이 컨셉의 스킨 입니다.', '프리미엄 상점', 'premium')">
       <div class="gallery-img-wrap">
         <div class="thumb-badge badge-premium">프리미엄</div>
-        <img src="https://ik.imagekit.io/yena333/%ED%81%90%ED%8B%B0%EB%AA%BD%ED%82%A4.png" alt="큐티 몽키 스킨">
+        <img src="https://ik.imagekit.io/yena333/%EB%82%98%EB%82%98%ED%82%A4%ED%8B%B0.png" alt="큐티 몽키 스킨">
       </div>
       <div class="gallery-info">
         <div class="gallery-title">큐티 몽키 스킨</div>
@@ -666,7 +682,6 @@ body{
   </div>
 </div>
 
-<!-- 앨범형 좌우 배치 모달 구조 -->
 <div class="modal" id="imageModal" onclick="closeModal()">
   <span class="modal-close">&times;</span>
   <div class="modal-content-wrap" onclick="event.stopPropagation()">
@@ -732,7 +747,6 @@ function closeModal() {
   document.getElementById('imageModal').style.display = 'none';
 }
 
-/* 필터 및 검색 기능 통합 관리 */
 function filterGallery() {
   const categoryFilter = document.getElementById('categoryFilter').value;
   const searchInput = document.getElementById('searchInput');
@@ -746,12 +760,9 @@ function filterGallery() {
     const titleElem = item.getElementsByClassName('gallery-title')[0];
     const textValue = titleElem ? (titleElem.textContent || titleElem.innerText).toLowerCase() : '';
 
-    // 카테고리 일치 여부 확인
     const matchesCategory = (categoryFilter === 'all' || category === categoryFilter);
-    // 검색어 일치 여부 확인
     const matchesSearch = (textValue.indexOf(filterText) > -1);
 
-    // 둘 다 만족할 때만 표시
     if (matchesCategory && matchesSearch) {
       item.style.display = ""; 
     } else {
