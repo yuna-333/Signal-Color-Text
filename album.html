@@ -134,12 +134,14 @@ body{
   color: #777;
 }
 
+/* 메인 레이아웃 (좌측 여백 카테고리 + 우측 갤러리) */
 .main-layout {
   display: flex;
   gap: 30px;
   padding: 40px 20px;
 }
 
+/* 좌측 카테고리 사이드바 */
 .sidebar {
   width: 200px;
   flex-shrink: 0;
@@ -670,6 +672,16 @@ body{
         </div>
       </div>
 
+      <div class="gallery-item" data-type="wing" onclick="openModal('https://ik.imagekit.io/yena333/dj%EB%B2%A0%EC%96%B4.png?updatedAt=1789659638047', 'DJ 베어', '신나는 분위기를 연출하는 DJ 곰돌이 컨셉의 아이템 입니다.', '이벤트 아이템', 'event')">
+        <div class="gallery-img-wrap">
+          <div class="thumb-badge badge-event">이벤트</div>
+          <img src="https://ik.imagekit.io/yena333/dj%EB%B2%A0%EC%96%B4.png?updatedAt=1789659638047" alt="DJ 베어">
+        </div>
+        <div class="gallery-info">
+          <div class="gallery-title">DJ 베어</div>
+        </div>
+      </div>
+	  
       <div class="gallery-item" data-type="wing" onclick="openModal('https://ik.imagekit.io/yena333/%EC%B6%94%EC%84%9D%20%ED%86%A0%EB%81%BC%EC%84%B8%ED%8A%B8.webp', '추석 토끼 세트', '토끼 귀와 당근 가방이 합쳐진 귀여운 토끼 세트 치장 아이템 입니다.', '이벤트 아이템', 'event')">
         <div class="gallery-img-wrap">
           <div class="thumb-badge badge-event">이벤트</div>
