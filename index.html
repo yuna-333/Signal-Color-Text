@@ -382,14 +382,42 @@ margin-left:4px;
   position: relative;
   width: 100%;
   max-width: 1200px;       
-  height: 50px;              
+  height: 40px;              
   margin: 10px auto;       
   overflow: hidden;
-  border-radius: 12px;    
+  border-radius: 10px;    
   background-color: #222;
-  border: 1px solid #555;
+  border: 1px solid #353535;
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   box-sizing: border-box;
+}
+
+.vertical-slider .v-prev,
+.vertical-slider .v-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  color: #353535;
+  border: none;
+  width: 30px;    
+  height: 30px;       
+  font-size: 1em;      
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 4px;
+  z-index: 10;
+}
+
+.vertical-slider .v-prev { left: 5px; }
+.vertical-slider .v-next { right: 5px; }
+
+.vertical-slider .v-prev:hover,
+.vertical-slider .v-next:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .v-slide {
@@ -401,16 +429,14 @@ margin-left:4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1em;
+  font-size: 0.9em;
   font-weight: bold;
   color: #fff;
   opacity: 0;
   transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.v-slide {
   white-space: pre; 
 }
+
 .copy-alert {
   position: absolute;
   top: 65%; 
@@ -596,6 +622,7 @@ text-shadow:
     <a href="album.html">치장 아이템</a>
     <a href="skin.html">스킨 아이템</a>
   </div>
+</div>
 </nav>
 
 <div class="emoji-sidebar" id="emoji-sidebar">
@@ -724,24 +751,27 @@ text-shadow:
   <button class="next">&#10095;</button>
 </div>
 
-<div class="vertical-slider">
+<div class="vertical-slider" id="vSlider1">
   <div class="v-slide"> ^4[🤖뽀이칼텍스] ^9⛽차량 주유·엔진코팅·세차·광택 ^0및 ^2기름통·항공용 기름통 ^0판매합니다. </div>
-  <div class="v-slide"> ^2[🏝️극락도 핫타임] ^300:00 ~ 00:30 / 12:00~12:30 </div>
   <div class="v-slide"> ^7[🔥엠버] ^0배고픔을 채워주는 ^7스테이크🥩 ^0판매합니다. </div>
-  <div class="v-slide"> ^9[🪺알존 핫타임] ^303:00 ~ 03:30 / 15:00~15:30 </div>
   <div class="v-slide"> ^1[🧊투샷] ^0목마름을 채워주는 ^1딸바스무디🥤 ^0판매합니다. </div>
-  <div class="v-slide"> ^4[🎣낚시 핫타임] ^306:00 ~ 06:30 / 18:00~18:30 </div>
   <div class="v-slide"> ^5[🛠️더 커스텀] ^0차량 수리에 필요한 ^5강화타이어·긴급수리도구🛠️ ^0판매합니다. </div>
-  <div class="v-slide"> ^5[⛏️광산 핫타임] ^309:00 ~ 09:30 / 21:00~21:30 </div>
   <div class="v-slide"> ^7[🏥EMS] ^0긴급 소생과 체력을 보충하는 ^7체력 회복제💊 ^0판매합니다. </div>
-  <div class="v-slide"> ^2[🏝️극락도 핫타임] ^300:00 ~ 00:30 / 12:00~12:30 </div>
   <div class="v-slide"> ^9[⛽오일리] ^9⛽차량 주유·엔진코팅·세차·광택 ^0및 ^2기름통·항공용 기름통 ^0판매합니다. </div>
-  <div class="v-slide"> ^9[🪺알존 핫타임] ^303:00 ~ 03:30 / 15:00~15:30 </div>
   <div class="v-slide"> ^3[🐝벌집] ^0전투에 필요한 ^3방탄복·총기파츠류🔫 ^0판매합니다. </div>
-  <div class="v-slide"> ^4[🎣낚시 핫타임] ^306:00 ~ 06:30 / 18:00~18:30 </div>
   <div class="v-slide"> ^8[👑백호자동차] ^0시그널의 모든 차량을 ^8중개·매입·판매🚗^0 합니다.</div>
-  <div class="v-slide"> ^5[⛏️광산 핫타임] ^309:00 ~ 09:30 / 21:00~21:30 </div>
   <div class="v-slide"> ^6[🌙에코하우스] ^0시그널의 ^1기간만료 아이템 ^0및 ^3쓰레기 아이템^0을 매입합니다.</div>
+  <div class="v-slide"> ^1[🥊만천해] ^0체력을 증가시키는 ^1개인PT·헬스장 이용 ^0및 ^1스테로이드💉 ^0판매합니다.</div>
+  <button class="v-prev">&#10094;</button>
+  <button class="v-next">&#10095;</button>
+</div>
+
+<div class="vertical-slider" id="vSlider2">
+  <div class="v-slide"> 📢 시그널 유저의 ^9판매 · 구매 · 크루 모집 · 이벤트 등 ^0각종 무료 광고 가능합니다. </div>
+  <div class="v-slide"> 💗 예나·333 : ^3[판매] 꼬마 멍멍이 스킨 400억 / 귀요미 엔젤 윙봉 500억 💗</div>
+  <div class="v-slide"> 각종 문의 및 건의사항 ⚙️Discord ye.naaa </div>
+  <button class="v-prev">&#10094;</button>
+  <button class="v-next">&#10095;</button>
 </div>
 
 <div class="floating-slider">
@@ -1122,27 +1152,66 @@ function resetFloatInterval() {
 
 showFloatSlide(floatCurrent);
 
-let vCurrent = 0;
-const vSlides = document.querySelectorAll('.v-slide');
-const vTotal = vSlides.length;
+function initVerticalSlider(sliderId) {
+  const slider = document.getElementById(sliderId);
+  if (!slider) return;
 
-function showVSlide(index) {
-  vSlides.forEach((slide, i) => {
-    if(i === index){
-      slide.style.opacity = 1;
-      slide.style.transform = "translateY(0)";
-    } else {
-      slide.style.opacity = 0;
-      slide.style.transform = "translateY(100%)";
+  const vSlides = slider.querySelectorAll('.v-slide');
+  const vTotal = vSlides.length;
+  let vCurrent = 0;
+  let vInterval;
+
+  function showVSlide(index) {
+    vSlides.forEach((slide, i) => {
+      if(i === index){
+        slide.style.opacity = 1;
+        slide.style.transform = "translateY(0)";
+      } else {
+        slide.style.opacity = 0;
+        slide.style.transform = "translateY(100%)";
+      }
+    });
+  }
+
+  function startVInterval() {
+    vInterval = setInterval(() => {
+      vCurrent = (vCurrent + 1) % vTotal;
+      showVSlide(vCurrent);
+    }, 5000);
+  }
+
+  function resetVInterval() {
+    clearInterval(vInterval);
+    startVInterval();
+  }
+
+  if (vTotal > 0) {
+    showVSlide(vCurrent);
+    startVInterval();
+
+    const prevBtn = slider.querySelector('.v-prev');
+    const nextBtn = slider.querySelector('.v-next');
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        vCurrent = (vCurrent - 1 + vTotal) % vTotal;
+        showVSlide(vCurrent);
+        resetVInterval();
+      });
     }
-  });
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        vCurrent = (vCurrent + 1) % vTotal;
+        showVSlide(vCurrent);
+        resetVInterval();
+      });
+    }
+  }
 }
 
-showVSlide(vCurrent);
-setInterval(() => {
-  vCurrent = (vCurrent + 1) % vTotal;
-  showVSlide(vCurrent);
-}, 4000); 
+initVerticalSlider('vSlider1');
+initVerticalSlider('vSlider2');
 
 const colorMap = {
   '0': '#ffffff',
@@ -1158,18 +1227,15 @@ const colorMap = {
 };
 
 function applyColorCodes(text) {
-
   return text.replace(/\^(\d)([^^]+)/g, (match, code, content) => {
     const color = colorMap[code] || '#fff';
     return `<span style="color:${color}">${content}</span>`;
   });
 }
 
-
 document.querySelectorAll('.v-slide').forEach(slide => {
   slide.innerHTML = applyColorCodes(slide.textContent);
 });
-
 
 </script>
 
