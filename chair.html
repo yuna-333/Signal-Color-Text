@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>시그널 스킨 아이템</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FSBT5ELEKN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FSBT5ELEKN');
+</script>
+
+<style>
+body{
+  background:#0b0b0b;
+  color:white;
+  font-family: 'Rubik', 'Noto Sans KR', sans-serif;
+  padding:0px;
+  max-width:1000px;
+  margin:auto;
+}
+
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 40px;
+  background:rgba(20,20,20,0.8);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+.logo-area{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.home-btn{
+  font-size:18px;
+  text-decoration:none;
+  color:#d0d0d0;
+  transition:0.2s;
+}
+
+.home-btn:hover{
+  color:white;
+  text-shadow: 0 0 6px rgba(122,162,255,0.8), 0 0 12px rgba(122,162,255,0.6);
+}
+
+.logo{
+  font-size:18px;
+  font-weight:600;
+  letter-spacing:1px;
+  color:white;
+}
+
+.nav-links{
+  display:flex;
+  gap:25px;
+}
+
+.nav-links a{
+  color:#d0d0d0;
+  text-decoration:none;
+  font-size:15px;
+  position:relative;
+  transition:0.25s;
+}
+
+.nav-links a:hover{
+  color:white;
+}
+
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0%;
+  height:2px;
+  background:#7aa2ff;
+  transition:0.3s;
+}
+
+.nav-links a:hover::after{
+  width:100%;
+}
+
+.nav-links a.active{
+  color:white;
+  text-shadow:
+    0 0 4px rgba(122,162,255,0.9),
+    0 0 10px rgba(122,162,255,0.6),
+    0 0 20px rgba(122,162,255,0.4);
+}
+
+.nav-links a.active::after{
+  width:100%;
+}
+
+/* 상단 우측 필터 및 검색 영역 그룹 */
+.controls-area {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.filter-select, .search-area input {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: white;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.filter-select {
+  cursor: pointer;
+}
+
+.filter-select:focus, .search-area input:focus {
+  border-color: #7aa2ff;
+  box-shadow: 0 0 6px rgba(122,162,255,0.4);
+}
+
+.search-area input {
+  width: 150px;
+}
+
+.search-area input::placeholder {
+  color: #777;
+}
+
+.gallery-container {
+  padding: 40px 20px;
+}
+
+.gallery-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.gallery-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.gallery-header p {
+  opacity: 0.6;
+  font-size: 14px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.gallery-item {
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-item:hover {
+  transform: translateY(-2px);
+  border-color: #555;
+}
+
+.gallery-img-wrap {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%; 
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+
+.gallery-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-img-wrap img {
+  transform: scale(1.05);
+}
+
+/* 갤러리 썸네일 좌측 상단 작은 뱃지 스타일 */
+.thumb-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 12px;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
+
+/* 공통 뱃지 색상 테마 클래스 */
+.badge-premium {
+  background: rgba(255, 215, 0, 0.2);
+  color: #ffd700;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+}
+.badge-event {
+  background: rgba(122, 162, 255, 0.2);
+  color: #7aa2ff;
+  border: 1px solid rgba(122, 162, 255, 0.4);
+}
+.badge-limited {
+  background: rgba(255, 107, 107, 0.2);
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 107, 107, 0.4);
+}
+
+.gallery-info {
+  padding: 10px;
+  text-align: center;
+}
+
+.gallery-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0;
+}
+
+/* 앨범형 좌우 배치 모달 스타일 */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.modal-content-wrap {
+  display: flex;
+  background: #161616;
+  border: 1px solid #333;
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+}
+
+.modal-img-area {
+  flex: 1;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.modal-img-area img {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.modal-info-area {
+  flex: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+/* 모달 내부 뱃지 스타일 */
+.modal-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  width: fit-content;
+}
+.modal-badge.premium {
+  background: rgba(255, 215, 0, 0.15);
+  color: #ffd700;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+}
+.modal-badge.event {
+  background: rgba(122, 162, 255, 0.15);
+  color: #7aa2ff;
+  border: 1px solid rgba(122, 162, 255, 0.4);
+}
+.modal-badge.limited {
+  background: rgba(255, 107, 107, 0.15);
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 107, 107, 0.4);
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.modal-desc {
+  font-size: 14px;
+  color: #aaa;
+  line-height: 1.5;
+}
+
+.modal-close {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  color: #fff;
+  font-size: 36px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  z-index: 2010;
+}
+
+.modal-close:hover {
+  opacity: 0.7;
+}
+
+.footerText{
+  margin-top:50px;
+  margin-bottom:30px;
+  text-align:center;
+  opacity:0.5;
+  font-size:13px;
+}
+.nav-links a svg {
+  width: 13px;
+  height: 13px;
+  margin-left: 4px;
+  fill: currentColor;
+  vertical-align: -1px;
+  opacity: 0.7;
+}
+
+.nav-links a:hover svg {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .modal-content-wrap {
+    flex-direction: column;
+    max-width: 90%;
+  }
+  .modal-info-area {
+    padding: 20px;
+    text-align: center;
+  }
+  .modal-badge {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .navbar {
+    padding: 12px 20px;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .controls-area {
+    width: 100%;
+    justify-content: center;
+  }
+  .search-area input {
+    width: 140px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="logo-area">
+    <a href="index.html" class="home-btn">⌂</a>
+    <div class="logo"></div>
+	
+  <div class="nav-links">
+    <a href="index.html">컬러 텍스트</a>
+    <a href="album.html">치장 아이템</a>
+    <a href="skin.html">스킨 아이템</a>
+	<a href="chair.html" class="active">의자 아이템</a>
+	<a href="https://docs.google.com/document/d/1hdicbc5beJaFyY99g1BqVa02r5oecrAOnFzxUS94ezU/edit?tab=t.2jm1qtotfr85" target="_blank">
+      차량 및 액션 메뉴
+      <svg aria-hidden="true" data-component="Octicon" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-link-external">
+        <path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2Zm6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1Z"></path>
+      </svg>
+    </a>
+  </div>
+	
+  </div>
+
+  <div class="controls-area">
+    <select id="categoryFilter" class="filter-select" onchange="filterGallery()">
+      <option value="all">전체보기</option>
+      <option value="premium">프리미엄 상점</option>
+      <option value="event">이벤트 아이템</option>
+      <option value="limited">한정 아이템</option>
+    </select>
+    <div class="search-area">
+      <input type="text" id="searchInput" placeholder="아이템명 검색" oninput="filterGallery()">
+    </div>
+  </div>
+</nav>
+
+<div class="gallery-container">
+  <div class="gallery-header">
+    <h1>시그널 의자 아이템</h1>
+    <p>순차적으로 추가 업로드 될 예정이며, 출시 정보가 잘못 표기 되었을 경우 정정 요청 부탁드립니다. ⚙️Discord ye.naaa</p>
+  </div>
+
+  <div class="gallery-grid" id="galleryGrid">
+
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[A급] 핑크 구름 의자', '핑크 컬러의 폭신한 의자 입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="핑크 구름 의자">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[A급] 핑크 구름 의자</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[A급] 계란 의자', '귀여운 계란 친구들이 함께 있는 의자 입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="계란 의자">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[A급] 계란 의자</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[A급] 지구본 의자', '지구본 위에 서 있는 의자 입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="지구본 의자">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[A급] 지구본 의자</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[A급] 지구본 의자', '지구본 위에 서 있는 의자 입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="지구본 의자">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[A급] 지구본 의자</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[A급] 립 스위트 의자(화이트)', '따뜻한 벽난로와 함께 있는 입술 모양의 쇼파 의자 입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="립 스위트 의자(화이트)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[A급] 립 스위트 의자(화이트)</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[A급] 립 스위트 의자(핑크)', '따뜻한 벽난로와 함께 있는 입술 모양의 쇼파 의자 입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="립 스위트 의자(핑크)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[A급] 립 스위트 의자(핑크)</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[A급] 립 스위트 의자(블랙)', '따뜻한 벽난로와 함께 있는 입술 모양의 쇼파 의자 입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="립 스위트 의자(화이트)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[A급] 립 스위트 의자(블랙)</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[A급] 구름 의자', '화이트 컬러의 폭신한 의자 입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="구름 의자">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[A급] 구름 의자</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[A급] 하트 뿅뿅 침대 의자(레드)', '사랑이 피어나는 레드 컬러의 폭신한 침대 의자 입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="하트 뿅뿅 침대 의자(레드)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[A급] 하트 뿅뿅 침대 의자(레드)</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[A급] 하트 뿅뿅 침대 의자(핑크)', '사랑이 피어나는 핑크 컬러의 폭신한 침대 의자 입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="하트 뿅뿅 침대 의자(핑크)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[A급] 하트 뿅뿅 침대 의자(핑크)</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="premium" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[A급] 커피잔 의자', '커피향 가득한 커피잔 모양의 의자 입니다.', '프리미엄 상점', 'premium')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-premium">프리미엄</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="커피잔 의자">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[A급] 커피잔 의자</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="limited" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[A급] 크리스마스 트리 의자', '크리스마스 트리 모양의 의자 입니다.', '프리미엄 상점(한정판매)', 'limited')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-limited">한정판매</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="크리스마스 트리 의자">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[A급] 크리스마스 트리 의자</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="limited" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[S급] 월광 요정의 의자(핑크)', '영롱한 월광 요정의 의자 입니다.', '프리미엄 상점(한정판매)', 'limited')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-limited">한정판매</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="월광 요정의 의자(핑크)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[✨S급] 월광 요정의 의자(핑크)</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="limited" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[S급] 월광 요정의 의자(핑크)', '영롱한 월광 요정의 의자 입니다.', '프리미엄 상점(한정판매)', 'limited')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-limited">한정판매</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="월광 요정의 의자(핑크)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[✨S급] 월광 요정의 의자(퍼플)</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="limited" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[S급] 월광 요정의 의자(핑크)', '영롱한 월광 요정의 의자 입니다.', '프리미엄 상점(한정판매)', 'limited')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-limited">한정판매</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="월광 요정의 의자(핑크)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[✨S급] 월광 요정의 의자(블루)</div>
+      </div>
+    </div>	
+
+    <div class="gallery-item" data-category="limited" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[S급] 월광 요정의 의자(핑크)', '영롱한 월광 요정의 의자 입니다.', '프리미엄 상점(한정판매)', 'limited')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-limited">한정판매</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="월광 요정의 의자(핑크)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[✨S급] 월광 요정의 의자(민트)</div>
+      </div>
+    </div>
+	
+    <div class="gallery-item" data-category="limited" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[S급] 월광 요정의 의자(핑크)', '영롱한 월광 요정의 의자 입니다.', '프리미엄 상점(한정판매)', 'limited')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-limited">한정판매</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="월광 요정의 의자(핑크)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[✨S급] 월광 요정의 의자(옐로우)</div>
+      </div>
+    </div>	
+	
+    <div class="gallery-item" data-category="limited" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[S급] 월광 요정의 의자(핑크)', '영롱한 월광 여왕의 의자 입니다.', '프리미엄 상점(한정판매)', 'limited')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-limited">한정판매</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="월광 요정의 의자(핑크)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[✨S급] 월광 여왕의 의자(옐로우)</div>
+      </div>
+    </div>	
+		
+    <div class="gallery-item" data-category="limited" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[S급] 월광 요정의 의자(핑크)', '영롱한 월광 여왕의 의자 입니다.', '프리미엄 상점(한정판매)', 'limited')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-limited">한정판매</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="월광 요정의 의자(핑크)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[✨S급] 월광 여왕의 의자(핑크)</div>
+      </div>
+    </div>	
+		
+    <div class="gallery-item" data-category="limited" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[S급] 월광 요정의 의자(핑크)', '영롱한 월광 여왕의 의자 입니다.', '프리미엄 상점(한정판매)', 'limited')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-limited">한정판매</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="월광 요정의 의자(핑크)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[✨S급] 월광 여왕의 의자(블루)</div>
+      </div>
+    </div>	
+		
+    <div class="gallery-item" data-category="limited" onclick="openModal('https://ik.imagekit.io/yena333/_chair.png', '[S급] 월광 요정의 의자(핑크)', '영롱한 월광 여왕의 의자 입니다.', '프리미엄 상점(한정판매)', 'limited')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-limited">한정판매</div>
+        <img src="https://ik.imagekit.io/yena333/_chair.png" alt="월광 요정의 의자(핑크)">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">[✨S급] 월광 여왕의 의자(퍼플)</div>
+      </div>
+    </div>	
+		
+  </div>
+</div>
+
+<div class="modal" id="imageModal" onclick="closeModal()">
+  <span class="modal-close">&times;</span>
+  <div class="modal-content-wrap" onclick="event.stopPropagation()">
+    <div class="modal-img-area">
+      <img id="modalImg" src="" alt="확대 이미지">
+    </div>
+    <div class="modal-info-area">
+      <div id="modalBadge" class="modal-badge"></div>
+      <div id="modalTitle" class="modal-title"></div>
+      <div id="modalDesc" class="modal-desc"></div>
+    </div>
+  </div>
+</div>
+
+<footer class="footerText">
+  배너 게시 및 텍스트 광고 게시 문의 <br>
+  ⚙️Discord ye.naaa ┃ 💜시그널 예나·333
+</footer>
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  sortGalleryToAsc();
+});
+
+function sortGalleryToAsc() {
+  const grid = document.getElementById('galleryGrid');
+  let items = Array.from(grid.getElementsByClassName('gallery-item'));
+
+  items.sort((a, b) => {
+    const titleA = a.querySelector('.gallery-title').textContent.trim();
+    const titleB = b.querySelector('.gallery-title').textContent.trim();
+    return titleA.localeCompare(titleB, 'ko');
+  });
+
+  items.forEach(item => {
+    grid.appendChild(item);
+  });
+}
+
+function openModal(src, title, desc, badgeText, badgeClass) {
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImg');
+  const modalBadge = document.getElementById('modalBadge');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  
+  modalImg.src = src;
+  modalTitle.textContent = title;
+  modalDesc.textContent = desc || '설명이 없습니다.';
+
+  if (badgeText) {
+    modalBadge.textContent = badgeText;
+    modalBadge.className = 'modal-badge ' + (badgeClass || '');
+    modalBadge.style.display = 'inline-block';
+  } else {
+    modalBadge.style.display = 'none';
+  }
+  
+  modal.style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('imageModal').style.display = 'none';
+}
+
+function filterGallery() {
+  const categoryFilter = document.getElementById('categoryFilter').value;
+  const searchInput = document.getElementById('searchInput');
+  const filterText = searchInput.value.toLowerCase().trim();
+  const grid = document.getElementById('galleryGrid');
+  const items = grid.getElementsByClassName('gallery-item');
+
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    const category = item.getAttribute('data-category');
+    const titleElem = item.getElementsByClassName('gallery-title')[0];
+    const textValue = titleElem ? (titleElem.textContent || titleElem.innerText).toLowerCase() : '';
+
+    const matchesCategory = (categoryFilter === 'all' || category === categoryFilter);
+    const matchesSearch = (textValue.indexOf(filterText) > -1);
+
+    if (matchesCategory && matchesSearch) {
+      item.style.display = ""; 
+    } else {
+      item.style.display = "none"; 
+    }
+  }
+}
+</script>
+
+</body>
+</html>
