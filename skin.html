@@ -207,6 +207,7 @@ body{
   transform: scale(1.05);
 }
 
+/* 갤러리 썸네일 좌측 상단 작은 뱃지 스타일 */
 .thumb-badge {
   position: absolute;
   top: 8px;
@@ -251,6 +252,7 @@ body{
   margin-bottom: 0;
 }
 
+/* 앨범형 좌우 배치 모달 스타일 */
 .modal {
   display: none;
   position: fixed;
@@ -303,6 +305,7 @@ body{
   text-align: left;
 }
 
+/* 모달 내부 뱃지 스타일 */
 .modal-badge {
   display: inline-block;
   font-size: 11px;
@@ -581,6 +584,15 @@ body{
       </div>
     </div>
 		
+    <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%ED%81%AC%EB%A6%AC%EC%8A%A4%EB%A7%88%EC%8A%A4%20%EB%9A%B1%EB%95%A1%EC%9D%B4.png', '크리스마스 뚱뚱이', '뚱뚱한 크리스마스 컨셉의 스킨 입니다.', '이벤트 아이템', 'event')">
+      <div class="gallery-img-wrap">
+        <div class="thumb-badge badge-event">이벤트</div>
+        <img src="https://ik.imagekit.io/yena333/%ED%81%AC%EB%A6%AC%EC%8A%A4%EB%A7%88%EC%8A%A4%20%EB%9A%B1%EB%95%A1%EC%9D%B4.png" alt="크리스마스 뚱뚱이">
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-title">크리스마스 뚱뚱이</div>
+      </div>
+    </div>
     <div class="gallery-item" data-category="event" onclick="openModal('https://ik.imagekit.io/yena333/%EB%82%98%EB%9D%BC.png', '나라', '예쁜 인간형 여성 스킨 입니다.', '이벤트 아이템', 'event')">
       <div class="gallery-img-wrap">
         <div class="thumb-badge badge-event">이벤트</div>
@@ -694,7 +706,6 @@ body{
   </div>
 </div>
 
-<!-- 앨범형 좌우 배치 모달 구조 -->
 <div class="modal" id="imageModal" onclick="closeModal()">
   <span class="modal-close">&times;</span>
   <div class="modal-content-wrap" onclick="event.stopPropagation()">
@@ -772,7 +783,7 @@ function filterGallery() {
     const category = item.getAttribute('data-category');
     const titleElem = item.getElementsByClassName('gallery-title')[0];
     const textValue = titleElem ? (titleElem.textContent || titleElem.innerText).toLowerCase() : '';
-	  
+
     const matchesCategory = (categoryFilter === 'all' || category === categoryFilter);
     const matchesSearch = (textValue.indexOf(filterText) > -1);
 
