@@ -137,7 +137,7 @@ body{
 background:#0b0b0b;
 color:white;
 font-family: 'Rubik', 'Noto Sans KR', sans-serif;
-padding:0px;
+padding:30px;
 max-width:1000px;
 margin:auto;
 }
@@ -251,7 +251,6 @@ opacity:0.6;
 .preview{
 display: block;
 font-size:14px;
-chat
 min-height:32px;
 white-space: pre-wrap;
 font-kerning:none;
@@ -280,102 +279,6 @@ opacity:0.8;
 font-size:11px;
 opacity:0.6;
 margin-left:4px;
-}
-
-.slider {
-  position: relative;
-  width: 100%;
-  max-width: 1200px;
-  height: 200px;
-  margin: 0 auto;
-  overflow: hidden;
-}
-
-.slide {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-}
-
-.slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 1;
-}
-
-.slider .prev,
-.slider .next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgb(200 200 200 / 0%);
-  color: #ffffff80;
-  border: none;
-  width: 30px;    
-  height: 30px;       
-  font-size: 1.2em;   
-  line-height: 1;      
-  padding: 0;        
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border-radius: 4px;
-  z-index: 2;
-}
-
-.slider .prev { left: 5px; }
-.slider .next { right: 5px; }
-
-.floating-slider {
-  position: fixed;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-  width: 120px;
-  height: 300px;
-  overflow: hidden;
-  z-index: 1000;
-}
-
-.float-slide {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-}
-
-.float-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.dots {
-  position: absolute;
-  bottom: 5px;
-  width: 100%;
-  text-align: center;
-}
-
-.dot {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin: 0 3px;
-  background-color: rgba(255,255,255,0.5);
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.dot.active,
-.dot:hover {
-  background-color: white;
 }
 
 .vertical-slider {
@@ -457,94 +360,6 @@ margin-left:4px;
   transform: translateX(-50%) translateY(-12px); 
 }
 
-.navbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px 40px;
-
-background:rgba(20,20,20,0.8);
-backdrop-filter:blur(10px);
-
-border-bottom:1px solid rgba(255,255,255,0.05);
-
-position:sticky;
-top:0;
-z-index:1000;
-}
-
-.logo{
-font-size:18px;
-font-weight:600;
-letter-spacing:1px;
-color:white;
-}
-
-.nav-links{
-display:flex;
-gap:25px;
-}
-
-.nav-links a{
-color:#d0d0d0;
-text-decoration:none;
-font-size:15px;
-position:relative;
-transition:0.25s;
-}
-
-.nav-links a:hover{
-color:white;
-}
-
-.nav-links a::after{
-content:"";
-position:absolute;
-left:0;
-bottom:-6px;
-width:0%;
-height:2px;
-background:#7aa2ff;
-transition:0.3s;
-}
-
-.nav-links a:hover::after{
-width:100%;
-}
-
-.nav-links a.active{
-color:white;
-
-text-shadow:
-0 0 4px rgba(122,162,255,0.9),
-0 0 10px rgba(122,162,255,0.6),
-0 0 20px rgba(122,162,255,0.4);
-}
-
-.nav-links a.active::after{
-width:100%;
-}
-
-.logo-area{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.home-btn{
-font-size:18px;
-text-decoration:none;
-color:#d0d0d0;
-transition:0.2s;
-}
-
-.home-btn:hover{
-color:white;
-text-shadow:
-0 0 6px rgba(122,162,255,0.8),
-0 0 12px rgba(122,162,255,0.6);
-}
-
 .color.style-btn {
   background: rgba(255,255,255,0.08);
   font-weight: bold;
@@ -582,19 +397,6 @@ text-shadow:
   font-size:13px;
 }
 
-.nav-links a svg {
-  width: 13px;
-  height: 13px;
-  margin-left: 4px;
-  fill: currentColor;
-  vertical-align: -1px;
-  opacity: 0.7;
-}
-
-.nav-links a:hover svg {
-  opacity: 1;
-}
-
 .c0{color:#ffffff;}
 .c1{color:#FFC7DF;}
 .c2{color:#afec61;}
@@ -621,29 +423,6 @@ text-shadow:
 
 
 <body>
-
-<nav class="navbar">
-
-<div class="logo-area">
-
-<a href="index.html" class="home-btn">⌂</a>
-
-  <div class="logo"> </div>
-
-  <div class="nav-links">
-    <a href="index.html" class="active">컬러 텍스트</a>
-    <a href="album.html">치장 아이템</a>
-    <a href="skin.html">스킨 아이템</a>
-	<a href="chair.html">의자 아이템</a>
-	<a href="https://docs.google.com/document/d/1hdicbc5beJaFyY99g1BqVa02r5oecrAOnFzxUS94ezU/edit?tab=t.2jm1qtotfr85" target="_blank">
-      차량 및 액션 메뉴
-      <svg aria-hidden="true" data-component="Octicon" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-link-external">
-        <path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2Zm6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1Z"></path>
-      </svg>
-    </a>
-  </div>
-</div>
-</nav>
 
 <div class="emoji-sidebar" id="emoji-sidebar">
   <button id="emoji-toggle"><span class="material-icons">⌅</span></button>
@@ -690,23 +469,20 @@ text-shadow:
 <div class="emoji-category">
   <div class="emoji-title">🏢 팩션</div>
   <div class="emoji-grid">
+    <span onclick="insertEmoji(this)">🚑</span>
     <span onclick="insertEmoji(this)">👮🏻</span>
     <span onclick="insertEmoji(this)">🕋</span>
-    <span onclick="insertEmoji(this)">🚑</span>
     <span onclick="insertEmoji(this)">🛠️</span>
-    <span onclick="insertEmoji(this)">🔥</span>
-    <span onclick="insertEmoji(this)">🧊</span>
     <span onclick="insertEmoji(this)">🐝</span>
-    <span onclick="insertEmoji(this)">👑</span>
-	<span onclick="insertEmoji(this)">🤖</span>
-    <span onclick="insertEmoji(this)">🌙</span>
     <span onclick="insertEmoji(this)">⛽</span>
-	<span onclick="insertEmoji(this)">🥊</span>
-    <span onclick="insertEmoji(this)">⛩️</span>
-    <span onclick="insertEmoji(this)">☠️</span>
-    <span onclick="insertEmoji(this)">👺</span>
+    <span onclick="insertEmoji(this)">🌙</span>
+    <span onclick="insertEmoji(this)">🤖</span>
+    <span onclick="insertEmoji(this)">🕷️</span>
+    <span onclick="insertEmoji(this)">🌿</span>
     <span onclick="insertEmoji(this)">🎴</span>
-    <span onclick="insertEmoji(this)">🐣</span>
+    <span onclick="insertEmoji(this)">🌃</span>
+    <span onclick="insertEmoji(this)">🌸</span>
+    <span onclick="insertEmoji(this)">👑</span>
   </div>
 </div>
 
@@ -748,75 +524,6 @@ text-shadow:
 </div>
 </div>
 
-<div class="slider"> 
-  <div class="slide">
-    <a href="https://discord.gg/sig-rp" target="_blank">
-      <img src="https://ik.imagekit.io/yena333/banner_1.png">
-    </a>
-  </div>
-
-  <div class="slide">
-    <a href="https://discord.gg/sig-rp" target="_blank">
-      <img src="https://ik.imagekit.io/yena333/banner_2.png">
-    </a>
-  </div>
-
-  <div class="slide">
-    <a href="https://discord.gg/sig-rp" target="_blank">
-      <img src="https://ik.imagekit.io/yena333/banner_3.png">
-    </a>
-  </div>
-
-  <button class="prev">&#10094;</button>
-  <button class="next">&#10095;</button>
-</div>
-
-<div class="vertical-slider" id="vSlider1">
-  <div class="v-slide"> ^4[🤖뽀이칼텍스] ^9⛽차량 주유·엔진코팅·세차·광택 ^0및 ^2기름통·항공용 기름통 ^0판매합니다. </div>
-  <div class="v-slide"> ^7[🔥엠버] ^0배고픔을 채워주는 ^7스테이크🥩 ^0판매합니다. </div>
-  <div class="v-slide"> ^1[🧊투샷] ^0목마름을 채워주는 ^1딸바스무디🥤 ^0판매합니다. </div>
-  <div class="v-slide"> ^5[🛠️더 커스텀] ^0차량 수리에 필요한 ^5강화타이어·긴급수리도구🛠️ ^0판매합니다. </div>
-  <div class="v-slide"> ^7[🏥EMS] ^0긴급 소생과 체력을 보충하는 ^7체력 회복제💊 ^0판매합니다. </div>
-  <div class="v-slide"> ^9[⛽오일리] ^9⛽차량 주유·엔진코팅·세차·광택 ^0및 ^2기름통·항공용 기름통 ^0판매합니다. </div>
-  <div class="v-slide"> ^3[🐝벌집] ^0전투에 필요한 ^3방탄복·총기파츠류🔫 ^0판매합니다. </div>
-  <div class="v-slide"> ^8[👑백호자동차] ^0시그널의 모든 차량을 ^8중개·매입·판매🚗^0 합니다.</div>
-  <div class="v-slide"> ^6[🌙에코하우스] ^0시그널의 ^1기간만료 아이템 ^0및 ^3쓰레기 아이템^0을 매입합니다.</div>
-  <div class="v-slide"> ^1[🥊만천해] ^0체력을 증가시키는 ^1개인PT·헬스장 이용 ^0및 ^1스테로이드💉 ^0판매합니다.</div>
-  <button class="v-prev">&#10094;</button>
-  <button class="v-next">&#10095;</button>
-</div>
-
-<div class="vertical-slider" id="vSlider2">
-  <div class="v-slide"> 각종 문의 및 건의사항 ⚙️Discord ye.naaa </div>
-  <button class="v-prev">&#10094;</button>
-  <button class="v-next">&#10095;</button>
-</div>
-
-<div class="floating-slider">
-  <div class="float-slide">
-    <a href="https://discord.gg/sig-rp" target="_blank">
-      <img src="https://cdn.rwstatic.com/server/phone/a61c35c4-f17b-438a-afbc-995ca8752a57.webp" alt="플로팅1">
-    </a>
-  </div>
-
-  <div class="float-slide">
-    <a href="https://discord.gg/sig-rp" target="_blank">
-      <img src="https://cdn.rwstatic.com/server/phone/4bcd54bf-32e2-40f3-8016-387d73d578b7.webp" alt="플로팅2">
-    </a>
-  </div>
-
-  <div class="float-slide">
-    <a href="https://discord.gg/sig-rp" target="_blank">
-      <img src="https://cdn.rwstatic.com/server/phone/5834331e-bccf-4ad9-a21d-ab347f694292.webp" alt="플로팅3">
-    </a>
-  </div>
-
-  <div class="dots">
-    <span class="dot"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-  </div>
-</div>
 
 <div class="editor">
 
@@ -1096,80 +803,11 @@ function wrapText(wrapper){
 </script>
 
 <footer class="footerText">
- 배너 게시 및 텍스트 광고 게시 문의 <br>
-⚙️Discord ye.naaa ┃ 💜시그널 예나·333
+⚙️Discord ye.naaa 
 </footer>
 
 
 <script>
- let current = 0;
-const slides = document.querySelectorAll('.slide');
-const total = slides.length;
-
-function showSlide(index) {
-  slides.forEach((slide, i) => slide.style.opacity = i === index ? 1 : 0);
-}
-
-let slideInterval = setInterval(() => {
-  current = (current + 1) % total;
-  showSlide(current);
-}, 5000);
-
-document.querySelector('.prev').addEventListener('click', () => {
-  current = (current - 1 + total) % total;
-  showSlide(current);
-  resetInterval();
-});
-
-document.querySelector('.next').addEventListener('click', () => {
-  current = (current + 1) % total;
-  showSlide(current);
-  resetInterval();
-});
-
-function resetInterval() {
-  clearInterval(slideInterval);
-  slideInterval = setInterval(() => {
-    current = (current + 1) % total;
-    showSlide(current);
-  }, 3000);
-}
-
-showSlide(current);
-
-let floatCurrent = 0;
-const floatSlides = document.querySelectorAll('.float-slide');
-const floatDots = document.querySelectorAll('.dot');
-const floatTotal = floatSlides.length;
-
-function showFloatSlide(index) {
-  floatSlides.forEach((slide, i) => slide.style.opacity = i === index ? 1 : 0);
-  floatDots.forEach((dot, i) => dot.classList.toggle('active', i === index));
-}
-
-let floatInterval = setInterval(() => {
-  floatCurrent = (floatCurrent + 1) % floatTotal;
-  showFloatSlide(floatCurrent);
-}, 3000);
-
-floatDots.forEach((dot, i) => {
-  dot.addEventListener('mouseenter', () => {
-    floatCurrent = i;
-    showFloatSlide(floatCurrent);
-    resetFloatInterval();
-  });
-});
-
-function resetFloatInterval() {
-  clearInterval(floatInterval);
-  floatInterval = setInterval(() => {
-    floatCurrent = (floatCurrent + 1) % floatTotal;
-    showFloatSlide(floatCurrent);
-  }, 3000);
-}
-
-showFloatSlide(floatCurrent);
-
 function initVerticalSlider(sliderId) {
   const slider = document.getElementById(sliderId);
   if (!slider) return;
